@@ -17,11 +17,22 @@ public class ParticipantController {
     @Autowired
     private ParticipantService participantService;
 
-    @PostMapping
-    public ResponseEntity<Participant> createParticipant(@RequestBody Participant participant) {
-        Participant createdParticipant = participantService.createParticipant(participant);
-        return new ResponseEntity<>(createdParticipant, HttpStatus.CREATED);
+    @PostMapping("/ajouter_participant")
+    public ResponseEntity<?> ajouterParticipant(@RequestBody Participant participant) {
+        Optional<Participant> existing = participantService.findByEmailAndName(
+            participant.getEmail(),
+            participant.getName()
+        );
+    
+        if (existing.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Participant déjà inscrit");
+        }
+    
+        Participant saved = participantService.saveParticipant(participant);
+        return ResponseEntity.ok(saved);
     }
+    
+    
 
     @GetMapping
     public ResponseEntity<List<Participant>> getAllParticipants() {

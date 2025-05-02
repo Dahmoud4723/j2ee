@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
     // Méthode pour trouver un participant par email
-    Optional<Participant> findByEmail(String email);
+    Optional<Participant> findByEmailAndName(String email, String name);
+
 }

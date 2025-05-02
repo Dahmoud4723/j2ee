@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
@@ -18,7 +19,8 @@ public class EventController {
     private EventService eventService;
 
     // Créer un nouvel événement
-    @PostMapping
+    
+    @PostMapping("/ajouter_event")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         Event createdEvent = eventService.createEvent(event);
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);

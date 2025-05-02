@@ -17,7 +17,7 @@ public class Registration {
     @JoinColumn(name = "event_id")
     private Event event;
 
-    // Getters et Setters
+    // Getters et Setters  
 
     public Long getId() {
         return id;
